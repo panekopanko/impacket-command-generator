@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>♥ pankos impacket command generator ♥</title>
+    <meta name="description" content="Generate impacket commands for Active Directory pentesting - by panko">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <button class="theme-toggle" onclick="toggleTheme()" title="Toggle dark mode">
+                🌙
+            </button>
+            <h1>♥ pankos impacket command generator ♥</h1>
+            <p class="subtitle">generate impacket commands for active directory pentesting ✨</p>
+            <div class="header-links">
+                <a href="https://github.com/fortra/impacket" target="_blank">📦 impacket repo</a>
+                <a href="https://panekopanko.se">🏠 back to website</a>
+                <a href="https://github.com/panekopanko">💜 github</a>
+            </div>
+        </header>
+
+        <!-- Parameters Section -->
+        <section class="parameters-section">
+            <h2>⚙️ configuration parameters</h2>
+            <div class="parameters-grid">
+                <!-- Basic Auth -->
+                <div class="param-group">
+                    <label for="domain">domain:</label>
+                    <input type="text" id="domain" placeholder="CORP" value="CORP">
+                </div>
+                <div class="param-group">
+                    <label for="username">username:</label>
+                    <input type="text" id="username" placeholder="administrator" value="administrator">
+                </div>
+                <div class="param-group">
+                    <label for="password">password:</label>
+                    <input type="text" id="password" placeholder="Password123!" value="">
+                </div>
+
+                <!-- Hashes -->
+                <div class="param-group">
+                    <label for="ntlm_hash">ntlm hash:</label>
+                    <input type="text" id="ntlm_hash" placeholder="NTLM hash (for pass-the-hash)" value="">
+                </div>
+                <div class="param-group">
+                    <label for="aes_key">aes key:</label>
+                    <input type="text" id="aes_key" placeholder="AES key (for overpass-the-hash)" value="">
+                </div>
+
+                <!-- Targets -->
+                <div class="param-group">
+                    <label for="target">target ip/hostname:</label>
+                    <input type="text" id="target" placeholder="192.168.1.10" value="192.168.1.10">
+                </div>
+                <div class="param-group">
+                    <label for="dc_ip">domain controller ip:</label>
+                    <input type="text" id="dc_ip" placeholder="192.168.1.5" value="192.168.1.5">
+                </div>
+
+                <!-- Commands & Users -->
+                <div class="param-group">
+                    <label for="command">command to execute:</label>
+                    <input type="text" id="command" placeholder="whoami" value="whoami">
+                </div>
+                <div class="param-group">
+                    <label for="target_user">target user:</label>
+                    <input type="text" id="target_user" placeholder="Administrator" value="Administrator">
+                </div>
+
+                <!-- Kerberos -->
+                <div class="param-group">
+                    <label for="spn">service principal name (SPN):</label>
+                    <input type="text" id="spn" placeholder="cifs/target.corp.local" value="cifs/target.corp.local">
+                </div>
+                <div class="param-group">
+                    <label for="krbtgt_hash">krbtgt hash (golden ticket):</label>
+                    <input type="text" id="krbtgt_hash" placeholder="KRBTGT NTLM hash" value="">
+                </div>
+                <div class="param-group">
+                    <label for="domain_sid">domain SID:</label>
+                    <input type="text" id="domain_sid" placeholder="S-1-5-21-..." value="S-1-5-21-0000000000-0000000000-0000000000">
+                </div>
+                <div class="param-group">
+                    <label for="service_hash">service hash (silver ticket):</label>
+                    <input type="text" id="service_hash" placeholder="Service account NTLM hash" value="">
+                </div>
+
+                <!-- SMB Server -->
+                <div class="param-group">
+                    <label for="share_name">SMB share name:</label>
+                    <input type="text" id="share_name" placeholder="share" value="share">
+                </div>
+                <div class="param-group">
+                    <label for="local_path">local path:</label>
+                    <input type="text" id="local_path" placeholder="/tmp/share" value="/tmp/share">
+                </div>
+
+                <!-- Registry & Computer -->
+                <div class="param-group">
+                    <label for="key_path">registry key path:</label>
+                    <input type="text" id="key_path" placeholder="HKLM\\Software" value="HKLM\\Software">
+                </div>
+                <div class="param-group">
+                    <label for="computer_name">computer name:</label>
+                    <input type="text" id="computer_name" placeholder="EVILPC" value="EVILPC">
+                </div>
+                <div class="param-group">
+                    <label for="computer_pass">computer password:</label>
+                    <input type="text" id="computer_pass" placeholder="Password123!" value="Password123!">
+                </div>
+
+                <!-- Delegation -->
+                <div class="param-group">
+                    <label for="target_computer">target computer:</label>
+                    <input type="text" id="target_computer" placeholder="DC01$" value="DC01$">
+                </div>
+                <div class="param-group">
+                    <label for="attacker_computer">attacker computer:</label>
+                    <input type="text" id="attacker_computer" placeholder="EVILPC$" value="EVILPC$">
+                </div>
+
+                <!-- Misc -->
+                <div class="param-group">
+                    <label for="child_domain">child domain:</label>
+                    <input type="text" id="child_domain" placeholder="child.corp.local" value="child.corp.local">
+                </div>
+                <div class="param-group">
+                    <label for="exchange_server">exchange server:</label>
+                    <input type="text" id="exchange_server" placeholder="exchange.corp.local" value="exchange.corp.local">
+                </div>
+            </div>
+        </section>
+
+        <!-- Search and Filter Section -->
+        <section class="search-section">
+            <div class="search-container">
+                <input type="text" id="search" placeholder="search commands... (e.g., 'psexec', 'kerberos', 'credentials')">
+                <button id="clear-search">×</button>
+            </div>
+
+            <div id="categories"></div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px;">
+                <div class="command-count" id="command-count"></div>
+                <button id="copy-all">copy all ♥</button>
+            </div>
+        </section>
+
+        <!-- Commands List -->
+        <section>
+            <div id="commands"></div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <p><strong>♥ made with love by panko ♥</strong></p>
+            <p>for educational & authorized security testing only! 💜</p>
+            <p style="margin-top: 10px;">
+                <a href="https://github.com/fortra/impacket" target="_blank">impacket by fortra</a> •
+                <a href="https://github.com/panekopanko" target="_blank">github</a> •
+                <a href="https://twitter.com/panekopanko" target="_blank">twitter</a>
+            </p>
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/data.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
