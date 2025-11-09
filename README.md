@@ -1,7 +1,7 @@
 # ♥ Panko's Impacket Command Generator ♥
 
 A cute little web-based tool for generating impacket commands for Active Directory pentesting! 💜
-
+Hosted Instance at https://impacket.panekopanko.se/
 Based on [Impacket](https://github.com/fortra/impacket) by Fortra - a collection of Python classes for working with network protocols.
 
 ---
